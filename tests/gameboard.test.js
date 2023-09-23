@@ -3,6 +3,17 @@ import { Ship } from "../src/ship";
 
 jest.mock("../src/ship");
 
+describe("test clear board", () => {
+  const gameboard = GameBoard();
+  const getBoard = jest.spyOn(gameboard, "getBoard");
+  const clearBoard = jest.spyOn(gameboard, "clearBoard");
+
+  test("test clear board", () => {
+    clearBoard();
+    expect(getBoard()).toEqual(Array(10).fill(Array(10).fill(null)));
+  });
+});
+
 describe("test ship retrieval", () => {
   Ship.mockReturnValue({ getName: jest.fn(() => "destroyer") });
   const testShip = Ship();

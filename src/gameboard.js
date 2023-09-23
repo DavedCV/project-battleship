@@ -13,6 +13,8 @@ export function GameBoard() {
     destroyer: 2,
   };
 
+  const getBoard = () => board;
+  
   const clearBoard = () =>
     (board = Array.from({ length: rows }, () => Array(columns).fill(null)));
 
@@ -52,5 +54,5 @@ export function GameBoard() {
 
   const receiveAttack = (row, column) => {};
 
-  return { clearBoard, placeShip, getShip };
+  return { getBoard, clearBoard, placeShip, getShip };
 }

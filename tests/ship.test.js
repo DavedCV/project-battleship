@@ -1,6 +1,6 @@
 import { Ship } from "../src/ship";
 
-describe("test ship", () => {
+describe("test ship object", () => {
   test("create a ship with length 3, hit it 3 times, check if it is sunk", () => {
     const ship = Ship(3);
     ship.hit();

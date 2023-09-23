@@ -1,7 +1,8 @@
-export function Ship(length) {
+export function Ship(name, length) {
   let numberOfHits = 0;
   let sunk = false;
 
+  const getName = () => name;
   const getNumberOfHits = () => numberOfHits;
   const hit = () => numberOfHits++;
   const isSunk = () => {
@@ -9,5 +10,5 @@ export function Ship(length) {
     return sunk;
   };
 
-  return { getNumberOfHits, hit, isSunk };
+  return { getName, getNumberOfHits, hit, isSunk };
 }

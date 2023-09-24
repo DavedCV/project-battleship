@@ -1,4 +1,4 @@
-import { Ship } from "./ship";
+import { Ship } from "./ship.js";
 
 export function GameBoard() {
   const rows = 10;
@@ -39,16 +39,24 @@ export function GameBoard() {
       throw new Error("Ship does not fit from the given position");
     }
 
-    if (board[row][column] !== null) throw new Error("Position already taken");
+    for (let i = 0; i < shipLength; i++) {
+      if (horizontal) {
+        if (board[row][column + i] !== null) {
+          throw new Error("Position already taken");
+        }
+      } else {
+        if (board[row + i][column] !== null) {
+          throw new Error("Position already taken");
+        }
+      }
+    }
 
     const newShip = Ship(shipName, shipLength);
-    if (horizontal) {
-      for (let i = 0; i < shipLength; i++) {
-        board[row][i] = newShip;
-      }
-    } else {
-      for (let i = 0; i < shipLength; i++) {
-        board[i][column] = newShip;
+    for (let i = 0; i < shipLength; i++) {
+      if (horizontal) {
+        board[row][column + i] = newShip;
+      } else {
+        board[row + i][column] = newShip;
       }
     }
   };
@@ -57,16 +65,20 @@ export function GameBoard() {
     if (row < 0 || row >= rows || column < 0 || column >= columns)
       throw new Error("Row position out of range");
 
-    if (board[row][column] == "miss" || board[row][column] == "hit")
+    const data = board[row][column];
+
+    if (data == "miss" || data == "hit")
       throw new Error("Position already attacked");
 
-    if (board[row][column] == null) {
+    if (data == null) {
       board[row][column] = "miss";
     } else {
-      board[row][column].hit();
-      if (board[row][column].isSunk()) sunkShips++;
+      data.hit();
+      if (data.isSunk()) sunkShips++;
       board[row][column] = "hit";
     }
+
+    return data;
   };
 
   const isGameOver = () => sunkShips === 5;

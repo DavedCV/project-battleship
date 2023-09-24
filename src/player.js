@@ -1,4 +1,4 @@
-import { GameBoard } from "./gameboard";
+import { GameBoard } from "./gameboard.js";
 
 export function Player(name) {
   const shipsQuantity = {
@@ -19,13 +19,17 @@ export function Player(name) {
   const getName = () => name;
 
   const placeShip = (row, column, shipName, horizontal) => {
-    if (shipsQuantity[shipName] > 0)
+    if (shipsQuantity[shipName] > 0) {
       gameboard.placeShip(row, column, shipName, horizontal);
+      shipsQuantity[shipName]--;
+    }
   };
 
   const attackEnemy = (enemyGameboard, row, column) => {
-    enemyGameboard.receiveAttack(row, column);
+    const ship = enemyGameboard.receiveAttack(row, column);
     turns++;
+
+    return ship;
   };
 
   return { getGameboard, getTurns, getName, placeShip, attackEnemy };

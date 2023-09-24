@@ -38,12 +38,12 @@ describe("test ship retrieval", () => {
   expect(placeShip).toHaveBeenCalledTimes(1);
 
   test("get ship in position (0, 0)", () => {
-    expect(getShip(0, 0)).toMatch(/destroyer/);
+    expect(getShip(0, 0).getName()).toMatch(/destroyer/);
     expect(getShip).toHaveBeenCalledTimes(1);
   });
 
   test("get ship in position (0, 1)", () => {
-    expect(getShip(0, 1)).toMatch(/destroyer/);
+    expect(getShip(0, 1).getName()).toMatch(/destroyer/);
     expect(getShip).toHaveBeenCalledTimes(2);
   });
 
@@ -72,11 +72,11 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/carrier/);
-      expect(getShip(0, 1)).toMatch(/carrier/);
-      expect(getShip(0, 2)).toMatch(/carrier/);
-      expect(getShip(0, 3)).toMatch(/carrier/);
-      expect(getShip(0, 4)).toMatch(/carrier/);
+      expect(getShip(0, 0).getName()).toMatch(/carrier/);
+      expect(getShip(0, 1).getName()).toMatch(/carrier/);
+      expect(getShip(0, 2).getName()).toMatch(/carrier/);
+      expect(getShip(0, 3).getName()).toMatch(/carrier/);
+      expect(getShip(0, 4).getName()).toMatch(/carrier/);
       expect(getShip).toHaveBeenCalledTimes(5);
     });
 
@@ -85,11 +85,11 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/carrier/);
-      expect(getShip(1, 0)).toMatch(/carrier/);
-      expect(getShip(2, 0)).toMatch(/carrier/);
-      expect(getShip(3, 0)).toMatch(/carrier/);
-      expect(getShip(4, 0)).toMatch(/carrier/);
+      expect(getShip(0, 0).getName()).toMatch(/carrier/);
+      expect(getShip(1, 0).getName()).toMatch(/carrier/);
+      expect(getShip(2, 0).getName()).toMatch(/carrier/);
+      expect(getShip(3, 0).getName()).toMatch(/carrier/);
+      expect(getShip(4, 0).getName()).toMatch(/carrier/);
       expect(getShip).toHaveBeenCalledTimes(5);
     });
   });
@@ -104,10 +104,10 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/battleship/);
-      expect(getShip(0, 1)).toMatch(/battleship/);
-      expect(getShip(0, 2)).toMatch(/battleship/);
-      expect(getShip(0, 3)).toMatch(/battleship/);
+      expect(getShip(0, 0).getName()).toMatch(/battleship/);
+      expect(getShip(0, 1).getName()).toMatch(/battleship/);
+      expect(getShip(0, 2).getName()).toMatch(/battleship/);
+      expect(getShip(0, 3).getName()).toMatch(/battleship/);
       expect(getShip).toHaveBeenCalledTimes(4);
     });
 
@@ -116,10 +116,10 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/battleship/);
-      expect(getShip(1, 0)).toMatch(/battleship/);
-      expect(getShip(2, 0)).toMatch(/battleship/);
-      expect(getShip(3, 0)).toMatch(/battleship/);
+      expect(getShip(0, 0).getName()).toMatch(/battleship/);
+      expect(getShip(1, 0).getName()).toMatch(/battleship/);
+      expect(getShip(2, 0).getName()).toMatch(/battleship/);
+      expect(getShip(3, 0).getName()).toMatch(/battleship/);
       expect(getShip).toHaveBeenCalledTimes(4);
     });
   });
@@ -134,9 +134,9 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/cruiser/);
-      expect(getShip(0, 1)).toMatch(/cruiser/);
-      expect(getShip(0, 2)).toMatch(/cruiser/);
+      expect(getShip(0, 0).getName()).toMatch(/cruiser/);
+      expect(getShip(0, 1).getName()).toMatch(/cruiser/);
+      expect(getShip(0, 2).getName()).toMatch(/cruiser/);
       expect(getShip).toHaveBeenCalledTimes(3);
     });
 
@@ -145,9 +145,9 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/cruiser/);
-      expect(getShip(1, 0)).toMatch(/cruiser/);
-      expect(getShip(2, 0)).toMatch(/cruiser/);
+      expect(getShip(0, 0).getName()).toMatch(/cruiser/);
+      expect(getShip(1, 0).getName()).toMatch(/cruiser/);
+      expect(getShip(2, 0).getName()).toMatch(/cruiser/);
       expect(getShip).toHaveBeenCalledTimes(3);
     });
   });
@@ -162,9 +162,9 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/submarine/);
-      expect(getShip(0, 1)).toMatch(/submarine/);
-      expect(getShip(0, 2)).toMatch(/submarine/);
+      expect(getShip(0, 0).getName()).toMatch(/submarine/);
+      expect(getShip(0, 1).getName()).toMatch(/submarine/);
+      expect(getShip(0, 2).getName()).toMatch(/submarine/);
       expect(getShip).toHaveBeenCalledTimes(3);
     });
 
@@ -173,9 +173,9 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/submarine/);
-      expect(getShip(1, 0)).toMatch(/submarine/);
-      expect(getShip(2, 0)).toMatch(/submarine/);
+      expect(getShip(0, 0).getName()).toMatch(/submarine/);
+      expect(getShip(1, 0).getName()).toMatch(/submarine/);
+      expect(getShip(2, 0).getName()).toMatch(/submarine/);
       expect(getShip).toHaveBeenCalledTimes(3);
     });
   });
@@ -190,8 +190,8 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/destroyer/);
-      expect(getShip(0, 1)).toMatch(/destroyer/);
+      expect(getShip(0, 0).getName()).toMatch(/destroyer/);
+      expect(getShip(0, 1).getName()).toMatch(/destroyer/);
       expect(getShip).toHaveBeenCalledTimes(2);
     });
 
@@ -200,8 +200,8 @@ describe("test ship placing", () => {
       expect(Ship).toHaveBeenCalledTimes(1);
       expect(placeShip).toHaveBeenCalledTimes(1);
 
-      expect(getShip(0, 0)).toMatch(/destroyer/);
-      expect(getShip(1, 0)).toMatch(/destroyer/);
+      expect(getShip(0, 0).getName()).toMatch(/destroyer/);
+      expect(getShip(1, 0).getName()).toMatch(/destroyer/);
       expect(getShip).toHaveBeenCalledTimes(2);
     });
   });
@@ -235,18 +235,15 @@ describe("test receive attack", () => {
 
   const placeShip = jest
     .spyOn(gameboard, "placeShip")
-    .mockImplementation(() => {
+    .mockImplementation((testShip) => {
       for (let i = 0; i < testShip.length; i++) {
         gameboard.getBoard()[0][i] = testShip;
       }
     });
 
-  let testShip;
-  let hitSpy;
-
-  testShip = Ship();
-  hitSpy = jest.spyOn(testShip, "hit");
-  placeShip();
+  const testShip = Ship();
+  const hitSpy = jest.spyOn(testShip, "hit");
+  placeShip(testShip);
 
   test("test receive attack in a ship", () => {
     gameboard.receiveAttack(0, 0);
@@ -256,19 +253,12 @@ describe("test receive attack", () => {
     expect(hitSpy).toHaveBeenCalledTimes(2);
   });
 
-  gameboard.clearBoard();
-  testShip = Ship();
-  hitSpy = jest.spyOn(testShip, "hit");
-  placeShip();
-
   test("test receive attack and sink a ship", () => {
-    gameboard.receiveAttack(0, 0);
-    gameboard.receiveAttack(0, 1);
     gameboard.receiveAttack(0, 2);
     gameboard.receiveAttack(0, 3);
     gameboard.receiveAttack(0, 4);
-    expect(hitSpy).toHaveBeenCalledTimes(5);
     expect(testShip.isSunk()).toBe(true);
+    expect(hitSpy).toHaveBeenCalledTimes(5);
   });
 
   placeShip.mockRestore();

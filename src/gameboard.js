@@ -21,9 +21,10 @@ export function GameBoard() {
   const getShip = (row, column) => {
     if (row < 0 || row >= rows || column < 0 || column >= columns)
       throw new Error("Row position out of range");
+
     if (board[row][column] == null) throw new Error("No ship in this position");
 
-    return board[row][column].getName();
+    return board[row][column];
   };
 
   const placeShip = (row, column, shipName, horizontal) => {
@@ -56,13 +57,12 @@ export function GameBoard() {
     if (row < 0 || row >= rows || column < 0 || column >= columns)
       throw new Error("Row position out of range");
 
+    if (board[row][column] == "miss" || board[row][column] == "hit")
+      throw new Error("Position already attacked");
+
     if (board[row][column] == null) {
       board[row][column] = "miss";
-    } else if (
-      board[row][column] &&
-      board[row][column] != "miss" &&
-      board[row][column] != "hit"
-    ) {
+    } else {
       board[row][column].hit();
       if (board[row][column].isSunk()) sunkShips++;
       board[row][column] = "hit";
@@ -71,5 +71,12 @@ export function GameBoard() {
 
   const isGameOver = () => sunkShips === 5;
 
-  return { getBoard, clearBoard, placeShip, getShip, receiveAttack, isGameOver };
+  return {
+    getBoard,
+    clearBoard,
+    placeShip,
+    getShip,
+    receiveAttack,
+    isGameOver,
+  };
 }

@@ -3,8 +3,11 @@ export function Ship(name, length) {
   let sunk = false;
 
   const getName = () => name;
+
   const getNumberOfHits = () => numberOfHits;
+
   const hit = () => numberOfHits++;
+
   const isSunk = () => {
     if (numberOfHits === length) sunk = true;
     return sunk;

@@ -14,7 +14,7 @@ export function GameBoard() {
   };
 
   const getBoard = () => board;
-  
+
   const clearBoard = () =>
     (board = Array.from({ length: rows }, () => Array(columns).fill(null)));
 

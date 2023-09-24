@@ -3,31 +3,38 @@ import { Ship } from "../src/ship";
 
 jest.mock("../src/ship");
 
+describe("test get board", () => {
+  test("test get board", () => {
+    const gameboard = GameBoard();
+    expect(gameboard.getBoard()).toEqual(Array(10).fill(Array(10).fill(null)));
+  });
+});
+
 describe("test clear board", () => {
   const gameboard = GameBoard();
-  const getBoard = jest.spyOn(gameboard, "getBoard");
-  const clearBoard = jest.spyOn(gameboard, "clearBoard");
 
   test("test clear board", () => {
-    clearBoard();
-    expect(getBoard()).toEqual(Array(10).fill(Array(10).fill(null)));
+    gameboard.clearBoard();
+    expect(gameboard.getBoard()).toEqual(Array(10).fill(Array(10).fill(null)));
   });
 });
 
 describe("test ship retrieval", () => {
   Ship.mockReturnValue({ getName: jest.fn(() => "destroyer") });
-  const testShip = Ship();
 
   const gameboard = GameBoard();
-  const getShip = jest
-    .spyOn(gameboard, "getShip")
-    .mockImplementation((row, column) => {
-      const board = [
-        [testShip, testShip],
-        [null, null],
-      ];
-      return board[row][column].getName();
+
+  const getShip = jest.spyOn(gameboard, "getShip");
+  const placeShip = jest
+    .spyOn(gameboard, "placeShip")
+    .mockImplementation(() => {
+      const testShip = Ship();
+      gameboard.getBoard()[0][0] = testShip;
+      gameboard.getBoard()[0][1] = testShip;
     });
+
+  placeShip();
+  expect(placeShip).toHaveBeenCalledTimes(1);
 
   test("get ship in position (0, 0)", () => {
     expect(getShip(0, 0)).toMatch(/destroyer/);
@@ -38,6 +45,8 @@ describe("test ship retrieval", () => {
     expect(getShip(0, 1)).toMatch(/destroyer/);
     expect(getShip).toHaveBeenCalledTimes(2);
   });
+
+  placeShip.mockRestore();
 });
 
 describe("test ship placing", () => {

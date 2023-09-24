@@ -1,3 +1,4 @@
+import { experiments } from "webpack";
 import { GameBoard } from "../src/gameboard";
 import { Ship } from "../src/ship";
 
@@ -216,4 +217,59 @@ describe("test ship placing", () => {
       expect(() => placeShip(0, 0, "carrier", true)).toThrow(Error);
     });
   });
+});
+
+describe("test receive attack", () => {
+  const gameboard = GameBoard();
+
+  Ship.mockReturnValue({
+    length: 5,
+    numberOfHits: 0,
+    hit() {
+      this.numberOfHits++;
+    },
+    isSunk() {
+      return this.numberOfHits === this.length;
+    },
+  });
+
+  const placeShip = jest
+    .spyOn(gameboard, "placeShip")
+    .mockImplementation(() => {
+      for (let i = 0; i < testShip.length; i++) {
+        gameboard.getBoard()[0][i] = testShip;
+      }
+    });
+
+  let testShip;
+  let hitSpy;
+
+  testShip = Ship();
+  hitSpy = jest.spyOn(testShip, "hit");
+  placeShip();
+
+  test("test receive attack in a ship", () => {
+    gameboard.receiveAttack(0, 0);
+    gameboard.receiveAttack(0, 1);
+    expect(gameboard.getBoard()[0][0]).toMatch(/hit/);
+    expect(gameboard.getBoard()[0][0]).toMatch(/hit/);
+    expect(hitSpy).toHaveBeenCalledTimes(2);
+  });
+
+  gameboard.clearBoard();
+  testShip = Ship();
+  hitSpy = jest.spyOn(testShip, "hit");
+  placeShip();
+
+  test("test receive attack and sink a ship", () => {
+    gameboard.receiveAttack(0, 0);
+    gameboard.receiveAttack(0, 1);
+    gameboard.receiveAttack(0, 2);
+    gameboard.receiveAttack(0, 3);
+    gameboard.receiveAttack(0, 4);
+    expect(hitSpy).toHaveBeenCalledTimes(5);
+    expect(testShip.isSunk()).toBe(true);
+  });
+
+  placeShip.mockRestore();
 });

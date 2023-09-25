@@ -68,6 +68,7 @@
 
 .name-form .name-input::placeholder {
   color: var(--transparent-low-grey-color);
+  text-align: center;
 }
 
 .name-form .name-input:is(:hover, :focus) {
@@ -94,8 +95,8 @@
   justify-content: center;
   align-items: center;
 
-  mask: url('../assets/images/battleshipX.svg') no-repeat center;
-  -webkit-mask: url('../assets/images/battleshipX.svg') no-repeat center;
+  mask: url('../assets/images/carrierX.svg') no-repeat center;
+  -webkit-mask: url('../assets/images/carrierX.svg') no-repeat center;
 
   mask-size: 100%;
   -webkit-mask-size: 100%;

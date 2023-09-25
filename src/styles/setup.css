@@ -1,0 +1,81 @@
+:root {
+  --setup-max-width: 46.875rem;
+  --font-size-normal-responsive: min(calc(0.5rem + 1vw), 1rem);
+  --blue-light-color: #87ceeb;
+}
+
+.setup-wrapper {
+  width: 100%;
+}
+
+.setup-wrapper > * {
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.75);
+  max-width: var(--setup-max-width);
+}
+
+.message.setup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  
+  margin: 0 auto 0.5rem;
+  padding: 1rem;
+  font-size: var(--font-size-normal-responsive);
+}
+
+.message.setup .message-image {
+  height:  min(calc(1.25rem + 2vw), 2.75rem);;
+}
+
+.message.setup .message-container {
+  display: inline;
+  text-align: start;
+}
+
+.message-container .message-agent {
+  display: inline;
+  color: var(--blue-light-color);
+}
+
+/*
+.message-container .typed-cursor {
+
+}
+*/
+
+.setup-container {
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.board-fleet-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem; 
+}
+
+.reset-continue-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: min(10%, 2rem);
+  
+  margin: 0.5rem auto 0;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 30rem) {
+  .app.setup .setup-container .board-fleet-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .board-fleet-container .fleet-setup {
+    display: flex;
+    flex-direction: row;
+  }
+}

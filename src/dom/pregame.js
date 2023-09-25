@@ -32,7 +32,7 @@ function pregame() {
       type: "text",
       id: "name-input",
       className: "name-input",
-      placeholder: "Captain Name",
+      placeholder: "User Name",
       minLength: 0,
       maxLength: 15,
     });

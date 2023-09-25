@@ -1,5 +1,6 @@
 import helper from "./helper";
 import pregame from "./pregame";
+import setup from "./setup";
 
 function view() {
   function loadContent() {
@@ -14,6 +15,15 @@ function view() {
   }
 
   function loadSetup() {
+    setPlayerName();
+    helper.deleteAppContent();
+    setup.loadSetupContent();
+  }
+
+  function setPlayerName() {
+    const name = document.getElementById("name-input").value.toString().trim();
+    // TODO: set the player name to the player object
+    console.log(name);
   }
 
   return {

@@ -1,0 +1,167 @@
+:root {
+  --main-background: rgba(0, 0, 0, 0.75);
+  --transparent-shadow-color: #0000004d;
+  --transparent-low-grey-color: #ffffffa6;
+  --main-color: #ffffff;
+  --input-background-color: #00000033;
+  --main-opposite-color: #000000;
+}
+
+.pregame-card {
+  background-color: var(--main-background);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 28.125rem;
+
+  padding: min(calc(10%), 3rem);
+  border: 0.125rem solid transparent;
+  border-radius: 1rem;
+  box-shadow: 0 0 30px 0.0625rem var(--transparent-shadow-color);
+
+  text-align: center;
+  transition: border-color 0.5s;
+
+  aspect-ratio: 10/8;
+}
+
+.pregame-card:hover {
+  border: 0.125rem solid white;
+}
+
+.pregame-card h1 {
+  position: relative;
+
+  line-height: 1;
+  font-family: 'Anton', sans-serif;
+  font-size: 5rem;
+  letter-spacing: 0.1rem;
+}
+
+.pregame-card .name-form {
+  position: relative;
+  top: 5%;
+
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+.name-form .name-input {
+  position: relative;
+
+  width: 100%;
+
+  font-size: min(calc(0.6rem + 0.6vw), 1rem);
+  color: var(--main-color);
+
+  background-color: transparent;
+
+  padding-inline: 0.5rem;
+  padding-block: 0.7rem;
+
+  border: none;
+  border-bottom: 0.1rem solid var(--transparent-low-grey-color);
+}
+
+.name-form .name-input::placeholder {
+  color: var(--transparent-low-grey-color);
+}
+
+.name-form .name-input:is(:hover, :focus) {
+  outline: none;
+  background: var(--input-background-color);
+}
+
+.name-form .name-input:is(:hover, :focus)~.input-border {
+  width: 100%;
+}
+
+.name-form .input-border {
+  position: absolute;
+  background-color: var(--main-color);
+  width: 0%;
+  height: 0.125rem;
+  bottom: 0;
+  left: 0;
+  transition: 0.3s;
+}
+
+.play-now-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mask: url('../assets/images/battleshipX.svg') no-repeat center;
+  -webkit-mask: url('../assets/images/battleshipX.svg') no-repeat center;
+
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+
+  position: relative;
+  
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 4/1;
+
+  margin: 0 auto;
+  border: none;
+  background-color: transparent;
+
+  cursor: crosshair;
+}
+
+.play-now-button::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.8s ease;
+  
+  height: 100%;
+  width: 0;
+  
+  background-color: var(--main-color);
+}
+
+.play-now-button:hover::before,
+.play-now-button:focus::before {
+  width: 100%;
+}
+
+.play-now-button .text-play-button {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 0;
+
+  width: 100%;
+  
+  line-height: 2.5;
+  
+  font-size: min(calc(0.5rem + 0.5vw), 0.95rem);
+  letter-spacing: 0.1875rem;;
+  text-align: center;
+  color: var(--main-color);
+  
+  transition: color 0.8s ease;
+  
+  padding: 0;
+  margin: 0;
+}
+
+.play-now-button:hover .text-play-button,
+.play-now-button:focus .text-play-button {
+  color: var(--main-opposite-color);
+}
+
+@media screen and (max-width: 30rem) {
+  .pregame-card h1 {
+    font-size: 3rem;
+  }
+}

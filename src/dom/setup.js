@@ -109,7 +109,7 @@ function setup() {
     const continueButton = helper.create("button", {
       id: "continue-button",
       className: "continue-button",
-      textContent: "Confirm",
+      textContent: "Continue",
     });
 
     helper.appendAll(container, [resetButton, continueButton]);

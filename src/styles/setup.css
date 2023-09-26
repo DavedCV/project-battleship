@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.setup-wrapper > * {
+.setup-wrapper>* {
   border-radius: 0.5rem;
   background-color: rgba(0, 0, 0, 0.75);
   max-width: var(--setup-max-width);
@@ -19,14 +19,15 @@
   justify-content: flex-start;
   align-items: center;
   gap: 0.5rem;
-  
+
   margin: 0 auto 0.5rem;
   padding: 1rem;
   font-size: var(--font-size-normal-responsive);
 }
 
 .message.setup .message-image {
-  height:  min(calc(1.25rem + 2vw), 2.75rem);;
+  height: min(calc(1.25rem + 2vw), 2.75rem);
+  ;
 }
 
 .message.setup .message-container {
@@ -54,7 +55,191 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 0.5rem; 
+  margin-top: 0.5rem;
+}
+
+/* board styles are in the file board.css*/
+
+.fleet-setup {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.ship-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  position: relative;
+
+  max-width: 9.375rem;
+  min-width: 6.25rem;
+
+  margin: calc(0.25rem + 0.5vw);
+  padding: 0.25rem;
+  border: 0.125rem solid white;
+  border-radius: 0.5rem;
+
+  color: #ffffff;
+  background-color: #000000;
+  box-shadow: 0 0 10px 0 #87ceeb;
+
+  transition: all 0.05s linear, visibility 0.01s linear;
+  filter: brightness(0.5);
+}
+
+.ship-card .ship-content .ship-image {
+  height: min(calc(1rem + 1.5vw), 2rem);
+  max-width: 100%;
+
+  filter: invert(100%) sepia(8%) saturate(37%) hue-rotate(328deg) brightness(105%) contrast(100%);
+
+  pointer-events: none;
+
+  /*
+  position: relative;
+  z-index: 3;
+  */
+}
+
+.ship-card .ship-content .ship-name {
+  /*
+  position: relative;
+  z-index: 3;
+  */
+
+  font-size: 0.85rem;
+}
+
+.ship-card::before,
+.ship-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  background: rgb(0, 0, 0);
+  transition: all 0.2s linear, visibility 0.01s linear;
+}
+
+.ship-card::before {
+  width: calc(100% + 0.25rem);
+  height: calc(100% - 1rem);
+
+  top: 0.5rem;
+  left: -0.125rem;
+}
+
+.ship-card:after {
+  width: calc(100% - 1rem);
+  height: calc(100% + 0.25rem);
+  top: -0.125rem;
+  left: 0.5rem;
+}
+
+.ship-card:hover::before,
+.ship-card:focus::before {
+  height: calc(100% - 2rem);
+  top: 1rem;
+}
+
+.ship-card:hover::after,
+.ship-card:focus::after {
+  width: calc(100% - 2rem);
+  left: 1rem;
+}
+
+.ship-card:active {
+  transform: scale(0.95);
+}
+
+.ship-card:hover {
+  cursor: grab;
+}
+
+.ship-card:focus {
+  box-shadow: none;
+  filter: brightness(1);
+}
+
+.ship-card:focus .ship-content {
+  /*
+  position: relative;
+  z-index: 1;
+  */
+  pointer-events: none;
+}
+
+.ship-card:focus .ship-content .ship-image {
+  /*
+  position: relative;
+  z-index: 2;
+  */
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(8deg) brightness(100%) contrast(104%);
+}
+
+.ship-card.hidden {
+  background-color: rgba(0, 0, 0, 0.75);
+
+  box-shadow: none;
+
+  pointer-events: none;
+
+  opacity: 0.5;
+
+  filter: brightness(0.5);
+}
+
+.ship-card.hidden::before,
+.ship-card.hidden::after {
+  background: transparent;
+}
+
+.ship-card.hidden .ship-content {
+  visibility: hidden;
+}
+
+.ship-card[data-ship-name='carrier'] {
+  order: 1;
+}
+
+.ship-card[data-ship-name='carrier'] img {
+  aspect-ratio: 4/1;
+}
+
+.ship-card[data-ship-name='battleship'] {
+  order: 2;
+}
+
+.ship-card[data-ship-name='battleship'] img {
+  aspect-ratio: 4/1;
+}
+
+.ship-card[data-ship-name='cruiser'] {
+  order: 3;
+}
+
+.ship-card[data-ship-name='cruiser'] img {
+  aspect-ratio: 3/1;
+}
+
+.ship-card[data-ship-name='submarine'] {
+  order: 4;
+}
+
+.ship-card[data-ship-name='submarine'] img {
+  aspect-ratio: 3/1;
+}
+
+.ship-card[data-ship-name='destroyer'] {
+  order: 5;
+}
+
+.ship-card[data-ship-name='destroyer'] img {
+  aspect-ratio: 2/1;
 }
 
 .reset-continue-section {
@@ -63,7 +248,7 @@
   align-items: center;
 
   gap: min(10%, 2rem);
-  
+
   margin: 0.5rem auto 0;
   padding: 1rem;
 }
@@ -77,5 +262,27 @@
   .board-fleet-container .fleet-setup {
     display: flex;
     flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 30rem) {
+  .ship-card[data-ship-name='carrier'] {
+    order: 5;
+  }
+
+  .ship-card[data-ship-name='battleship'] {
+    order: 4;
+  }
+
+  .ship-card[data-ship-name='cruiser'] {
+    order: 3;
+  }
+
+  .ship-card[data-ship-name='submarine'] {
+    order: 2;
+  }
+
+  .ship-card[data-ship-name='destroyer'] {
+    order: 1;
   }
 }

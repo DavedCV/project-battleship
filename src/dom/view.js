@@ -1,6 +1,7 @@
 import helper from "./helper";
 import pregame from "./pregame";
 import setup from "./setup";
+import DragDrop from "./dragDrop";
 
 function view() {
   function loadContent() {
@@ -18,6 +19,7 @@ function view() {
     setPlayerName();
     helper.deleteAppContent();
     setup.loadSetupContent();
+    //DragDrop.initDraggableFields();
   }
 
   function setPlayerName() {

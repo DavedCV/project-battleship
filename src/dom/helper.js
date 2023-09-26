@@ -67,7 +67,7 @@ function helper() {
   function createBoard(description) {
     const board = document.createElement("div");
     board.id = `field-container-${description}`;
-    board.classList.add(`field-container-${description}`);
+    board.classList.add(`field-container`);
 
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {

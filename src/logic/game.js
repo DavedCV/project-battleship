@@ -1,10 +1,34 @@
 import { Player } from "./player.js";
 
-const userPlayer = Player("user");
-const computerPlayer = Player("computer");
+function Game() {
+  const ships = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
 
-const ships = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
+  let game;
 
+  function startGame(userName) {
+    const userPlayer = Player(userName);
+    const computerPlayer = Player("computer");
+
+    const getUserPlayer = () => userPlayer;
+    const getComputerPlayer = () => computerPlayer;
+
+    game = {
+      getUserPlayer,
+      getComputerPlayer,
+    };
+  }
+
+  function getGame() {
+    if (!game) throw new Error("First initialize the game");
+    return game;
+  }
+
+  return { startGame, getGame };
+}
+
+export default Game();
+
+/*
 // place ships for user
 for (let i = 0; i < 5; i++) {
   const ship = ships[i];
@@ -106,3 +130,4 @@ while (true) {
 
   userTurn = !userTurn;
 }
+*/

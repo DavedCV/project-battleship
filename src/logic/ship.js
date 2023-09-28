@@ -1,8 +1,12 @@
-export function Ship(name, length) {
+export function Ship(name, length, axis) {
   let numberOfHits = 0;
   let sunk = false;
 
   const getName = () => name;
+
+  const getLength = () => length;
+
+  const getAxis = () => axis;
 
   const getNumberOfHits = () => numberOfHits;
 
@@ -13,5 +17,5 @@ export function Ship(name, length) {
     return sunk;
   };
 
-  return { getName, getNumberOfHits, hit, isSunk };
+  return { getName, getLength, getAxis, getNumberOfHits, hit, isSunk };
 }

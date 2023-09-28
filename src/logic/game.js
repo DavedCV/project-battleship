@@ -12,9 +12,29 @@ function Game() {
     const getUserPlayer = () => userPlayer;
     const getComputerPlayer = () => computerPlayer;
 
+    const autoPlaceComputerPlayer = () => {
+      for (let i = 0; i < 5; i++) {
+        const ship = ships[i];
+        while (true) {
+          const row = Math.trunc(Math.random() * 10);
+          const column = Math.trunc(Math.random() * 10);
+          const horizontal = Math.random() > 0.5;
+
+          try {
+            computerPlayer.placeShip(row, column, ship, horizontal);
+            break;
+          } catch (e) {
+            //console.log(e);
+            continue;
+          }
+        }
+      }
+    };
+
     game = {
       getUserPlayer,
       getComputerPlayer,
+      autoPlaceComputerPlayer,
     };
   }
 

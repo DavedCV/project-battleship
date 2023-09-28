@@ -74,6 +74,7 @@ function DragDrop() {
 
     [...fleetContainer.children].forEach((node) => {
       node.addEventListener("touchstart", (event) => {
+        event.preventDefault();
         touchStartHandler(event, node);
       });
     });

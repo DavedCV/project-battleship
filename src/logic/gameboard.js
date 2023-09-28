@@ -72,17 +72,19 @@ export function GameBoard() {
     if (row < 0 || row >= rows || column < 0 || column >= columns)
       throw new Error("Row position out of range");
 
-    const data = board[row][column];
+    let data = board[row][column];
 
     if (data == "miss" || data == "hit")
       throw new Error("Position already attacked");
 
     if (data == null) {
       board[row][column] = "miss";
+      data = false;
     } else {
       data.hit();
       if (data.isSunk()) sunkShips++;
       board[row][column] = "hit";
+      data = true;
     }
 
     return data;

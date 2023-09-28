@@ -3,6 +3,7 @@ import Component from "./reusableComponents";
 import Message from "../utils/message";
 import Game from "../logic/game";
 import DragDrop from "./dragDrop";
+import Battle from "./battle";
 
 function setup() {
   function loadSetupContent() {
@@ -198,7 +199,7 @@ function setup() {
 
   function handleContinue() {
     if (Game.getGame().getUserPlayer().getGameboard().getFleetNumber() === 5) {
-      return;
+      Battle.loadBattleContent();
     }
   }
 

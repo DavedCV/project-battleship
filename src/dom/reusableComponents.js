@@ -1,5 +1,8 @@
 import helper from "./helper";
 
+// library
+import Typed from "typed.js";
+
 // assets
 import captain from "../assets/images/captain.png";
 import enemy from "../assets/images/enemy.png";
@@ -126,7 +129,14 @@ function Component() {
     name.textContent = nameText;
   }
 
-  return { createMessageSection, createShipCard };
+  function addTypeWritterMessage(element, stringArray) {
+    const typed = new Typed(element, {
+      strings: stringArray,
+      typeSpeed: 10,
+    });
+  }
+
+  return { createMessageSection, createShipCard, addTypeWritterMessage };
 }
 
 export default Component();

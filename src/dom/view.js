@@ -1,6 +1,7 @@
 import helper from "./helper";
 import pregame from "./pregame";
 import setup from "./setup";
+import Game from "../logic/game";
 import DragDrop from "./dragDrop";
 
 function view() {
@@ -19,12 +20,12 @@ function view() {
     setPlayerName();
     helper.deleteAppContent();
     setup.loadSetupContent();
-    //DragDrop.initDraggableFields();
+    DragDrop.initDraggableFields();
   }
 
   function setPlayerName() {
     const name = document.getElementById("name-input").value.toString().trim();
-    // TODO: set the player name to the player object
+    Game.startGame(name || "Cool Player");
     console.log(name);
   }
 

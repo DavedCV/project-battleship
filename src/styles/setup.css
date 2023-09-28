@@ -35,16 +35,26 @@
   text-align: start;
 }
 
-.message-container .message-agent {
+.message-container .message-captain {
   display: inline;
   color: var(--blue-light-color);
 }
 
-/*
 .message-container .typed-cursor {
+  position: relative;
+  left: 0.0625rem;
+  bottom: -0.1875rem;
 
+  display: inline-block;
+
+  width: 0.5rem;
+  height: 1rem;
+
+  color: transparent;
+  background-color: var(--blue-light-color);
+
+  overflow: hidden;
 }
-*/
 
 .setup-container {
   margin: 0 auto;

@@ -1,5 +1,8 @@
 import helper from "./helper";
 import Component from "./reusableComponents";
+import Message from "../utils/message";
+import Game from "../logic/game";
+import DragDrop from "./dragDrop";
 
 function setup() {
   function loadSetupContent() {
@@ -7,6 +10,9 @@ function setup() {
     app.classList.replace("pregame", "setup");
 
     app.appendChild(createSetupWrapper());
+
+    displayWelcomeMessage();
+    initButtons();
   }
 
   function createSetupWrapper() {
@@ -115,6 +121,85 @@ function setup() {
     helper.appendAll(container, [resetButton, continueButton]);
 
     return container;
+  }
+
+  function displayWelcomeMessage() {
+    const message = document.getElementById("message-captain");
+    Component.addTypeWritterMessage(message, Message.getWelcomeMessage());
+  }
+
+  function initButtons() {
+    initAxisButtons();
+    initResetContinueButtons();
+
+    setTabIndexCards();
+    disableContinueButton();
+  }
+
+  function initAxisButtons() {
+    const buttonX = document.getElementById("x-button");
+    const buttonY = document.getElementById("y-button");
+
+    buttonX.addEventListener("click", () => handleButton(buttonX, buttonY));
+    buttonY.addEventListener("click", () => handleButton(buttonY, buttonX));
+  }
+
+  function handleButton(button, oppositeButton) {
+    button.classList.add("selected");
+    oppositeButton.classList.remove("selected");
+  }
+
+  function setTabIndexCards() {
+    const shipCards = document.querySelectorAll(".ship-card");
+    shipCards.forEach((shipCard) => shipCard.setAttribute("tabindex", 0));
+  }
+
+  function disableContinueButton() {
+    const button = document.getElementById("continue-button");
+
+    button.classList.add("disabled");
+    button.addEventListener("keydown", DragDrop.preventEnterDefault);
+  }
+
+  function initResetContinueButtons() {
+    const resetButton = document.getElementById("reset-button");
+    const continueButton = document.getElementById("continue-button");
+    const gameboard = Game.getGame().getUserPlayer().getGameboard();
+
+    resetButton.addEventListener("click", () => handleReset(gameboard));
+    continueButton.addEventListener("click", handleContinue);
+  }
+
+  function handleReset(gameboard) {
+    const fieldContainer = document.getElementById("field-container-setup");
+
+    resetFleetSelect();
+    gameboard.clearBoard();
+    removePlacedShips(fieldContainer);
+    disableContinueButton();
+    setTabIndexCards();
+  }
+
+  function resetFleetSelect() {
+    const fleet = document.getElementById("fleet-setup");
+    const message = document.getElementById("message-captain");
+
+    [...fleet.children].forEach((node) => {
+      if (node.classList.contains("hidden")) {
+        node.classList.remove("hidden");
+      }
+    });
+  }
+
+  function removePlacedShips(fieldContainer) {
+    const ships = fieldContainer.querySelectorAll(".ship-image-container");
+    ships.forEach((ship) => ship.remove());
+  }
+
+  function handleContinue() {
+    if (Game.getGame().getUserPlayer().getGameboard().getFleetNumber() === 5) {
+      return;
+    }
   }
 
   return {

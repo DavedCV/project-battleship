@@ -124,8 +124,66 @@
   position: relative;
 }
 
+.board .field-container .field.hovering {
+  background-color: #87cfeb80;
+}
+
+.board .field-container .field.hovering.red {
+  background-color: #cf404080;
+}
+
 .board .field-container .field:hover {
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.board .field-container .ship-image-container {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: center;
+}
+
+.board .field-container .ship-image-container.bleep {
+  animation: bleep 3.5s infinite linear;
+}
+
+@keyframes bleep {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.board .field-container .ship-image-container img {
+  position: relative;
+  padding: 0;
+  user-select: none;
+  pointer-events: none;
+  animation: scaleDrop 0.25s linear forwards
+}
+
+@keyframes scaleDrop {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
+  }
+  80% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
 }
 
 @media screen and (max-width: 30rem) {

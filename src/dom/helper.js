@@ -80,11 +80,28 @@ function helper() {
     return board;
   }
 
+  function getNearestTen(num) {
+    if (num === 0) num++;
+
+    while (num % 10 !== 0) num++;
+
+    return num;
+  }
+
+  function getCoordinatesFromIndex(index) {
+    const x = Math.trunc(index / 10);
+    const y = index % 10;
+
+    return [x, y]
+  }
+
   return {
     deleteAppContent,
     create,
     appendAll,
     createMap,
+    getNearestTen,
+    getCoordinatesFromIndex
   };
 }
 

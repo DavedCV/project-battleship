@@ -1,0 +1,414 @@
+.battle-wrapper {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 1rem;
+
+  margin: 0 auto;
+  max-width: 75rem;
+}
+
+.board.player,
+.board.computer {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 1rem;
+}
+
+.board.player .map-title-container,
+.board.computer .map-title-container {
+  order: 1;
+  grid-column: 2 / 3;
+}
+
+.board .map-title-container .map-title {
+  text-align: right;
+  font-size: min(calc(0.5rem + 1vw), 1.25rem);
+  margin-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.board.player .map-title {
+  color: #87ceeb;
+}
+
+.board.computer .map-title {
+  color: #f3a640;
+}
+
+.field-container#field-container-computer {
+  background: url('../assets/images/grid.svg'),
+    radial-gradient(circle,
+      rgba(2, 0, 36, 0) 0%,
+      rgba(243, 166, 64, 0.15449929971988796) 60%,
+      rgba(243, 166, 64, 0.25253851540616246) 85%,
+      rgba(243, 166, 64, 0.3981967787114846) 100%);
+}
+
+.field-container#field-container-computer::before {
+  -webkit-filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg) brightness(96%) contrast(98%) !important;
+  filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg) brightness(96%) contrast(98%) !important;
+}
+
+.field-container#field-container-computer img {
+  -webkit-filter: invert(63%) sepia(99%) saturate(360%) hue-rotate(343deg) brightness(98%) contrast(94%);
+  filter: invert(63%) sepia(99%) saturate(360%) hue-rotate(343deg) brightness(98%) contrast(94%);
+}
+
+.field-container::after {
+  display: none;
+}
+
+.field {
+  position: relative;
+  cursor: crosshair;
+}
+
+.field::before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+
+  transform: translate(-37.5rem, -40.625rem) rotate(-315deg);
+  height: 30%;
+  width: 12.5rem;
+  border: 0.1875rem solid #fefefe;
+  border-radius: 1rem;
+  background-color: #fefefe;
+  opacity: 1;
+  transition: all 0.15s cubic-bezier(0.7, 0.03, 0.85, 0.43);
+}
+
+.field::after {
+  content: "";
+  z-index: 1;
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  border-radius: 100%;
+  opacity: 0;
+}
+
+
+.field.hit::before {
+  animation: shot 0.35s 0.175s 1;
+  -webkit-animation: shot 0.35s 0.175s 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.field.hit::after {
+  background-color: rgba(255, 0, 0, 0.5);
+  animation: ripple 0.5s 0.2s 1;
+  -webkit-animation: ripple 0.5s 0.2s 1;
+  animation-delay: 0.35s;
+  -webkit-animation-delay: 0.35s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.field.miss::before {
+  animation: miss 0.35s 0.175s 1;
+  -webkit-animation: miss 0.35s 0.175s 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.field.miss::after {
+  background-color: rgba(0, 153, 255, 0.5);
+  animation: ripple 0.5s 0.2s 1;
+  -webkit-animation: ripple 0.5s 0.2s 1;
+  animation-delay: 0.35s;
+  -webkit-animation-delay: 0.35s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.message.battle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+
+  grid-column: 1/3;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  font-size: min(calc(0.5rem + 1vw), 1rem);
+  transition: all 0.6s;
+}
+
+.message.battle.captain .message-captain {
+  color: #87ceeb;
+}
+
+.message.battle.captain .typed-cursor {
+  background-color: #87ceeb;
+}
+
+.message.battle.enemy {
+  justify-content: flex-end;
+
+}
+
+.message.battle.enemy .message-image {
+  order: 2;
+}
+
+.message.battle.enemy .message-container {
+  order: 1;
+}
+
+.message.battle.enemy .message-captain {
+  color: #f3a640;
+}
+
+.message.battle.enemy .typed-cursor {
+  background-color: #f3a640;
+}
+
+.message-image {
+  height: min(calc(1.25rem + 2vw), 2.75rem);
+}
+
+.message.battle .message-container {
+  display: inline;
+  text-align: start;
+}
+
+.message.battle .message-container .message-captain,
+.message.battle .message-container .message-enemy {
+  display: inline;
+}
+
+.message.battle .message-container .typed-cursor {
+  position: relative;
+  left: 0.0625rem;
+  bottom: -0.1875rem;
+  display: inline-block;
+  width: 0.5rem;
+  height: 1rem;
+  color: transparent;
+  overflow: hidden;
+}
+
+.message.battle.on-turn {
+  animation: enemyTurn 0.6s ease forwards;
+}
+
+.message.battle.on-turn.captain .message-captain,
+.message.battle.on-turn.enemy .message-enemy {
+  color: #000000;
+}
+
+.message.battle.on-turn.captain .typed-cursor,
+.message.battle.on-turn.enemy .typed-cursor {
+  color: #000000;
+}
+
+.message.battle.captain {
+  position: relative;
+  overflow: hidden;
+}
+
+.message.battle.captain::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  width: 200%;
+  height: 100%;
+
+  inset: 0;
+
+  background-position: left;
+  background: linear-gradient(90deg,
+      rgba(135, 206, 235, 1) 0%,
+      rgba(135, 206, 235, 0.8029586834733894) 20%,
+      rgba(135, 206, 235, 0.604079131652661) 40%,
+      rgba(135, 206, 235, 0.4023984593837535) 60%,
+      rgba(135, 206, 235, 0.19511554621848737) 80%,
+      rgba(135, 206, 235, 0) 100%);
+  transform: translateX(-100%);
+}
+
+.message.battle.enemy {
+  position: relative;
+  overflow: hidden;
+}
+
+.message.battle.enemy .message-container {
+  text-align: end;
+}
+
+.message.battle.enemy::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  width: 200%;
+  height: 100%;
+
+  inset: 0;
+
+  background: rgb(243, 166, 64);
+  background: linear-gradient(90deg,
+      rgba(243, 166, 64, 0) 0%,
+      rgba(243, 166, 64, 0.20211834733893552) 20%,
+      rgba(243, 166, 64, 0.40379901960784315) 40%,
+      rgba(243, 166, 64, 0.6026785714285714) 60%,
+      rgba(243, 166, 64, 0.7987570028011204) 80%,
+      rgba(243, 166, 64, 1) 100%);
+  transform: translateX(-100%);
+}
+
+.message.battle.captain.on-turn::after {
+  -webkit-animation: seepCaptain 1s 1 forwards;
+  animation: seepCaptain 1s 1 forwards;
+}
+
+.message.battle.enemy.on-turn::after {
+  -webkit-animation: seepEnemy 1s 1 forwards;
+  animation: seepEnemy 1s 1 forwards;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+@keyframes shot {
+  75% {
+    width: 5rem;
+    background-color: #fefefe;
+    border-color: #fefefe;
+  }
+
+  100% {
+    width: 30%;
+    background-color: rgba(255, 0, 0, 0.85);
+    border-color: rgba(255, 0, 0, 0.5);
+    transform: translateX(0) rotate(-315deg);
+  }
+}
+
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes miss {
+  75% {
+    width: 5rem;
+    background-color: #fefefe;
+    border-color: #fefefe;
+  }
+
+  100% {
+    width: 30%;
+    background-color: rgba(0, 153, 255, 0.85);
+    border-color: rgba(0, 153, 255, 0.5);
+    transform: translateX(0) rotate(-315deg);
+  }
+}
+
+@keyframes enemyTurn {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.0125);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes seepCaptain {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes seepEnemy {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 48rem) {
+  .battle-wrapper {
+    display: grid;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: start;
+  }
+
+  .battle-wrapper .board.enemy {
+    margin-left: auto;
+  }
+
+  .battle-wrapper .board {
+    max-width: 25rem;
+    grid-column: 1/3;
+  }
+}
+
+@media screen and (max-width: 30rem) {
+  .battle-wrapper {
+    gap: 0.5rem;
+  }
+
+  .battle-wrapper .board.player {
+    width: 12.5rem;
+    margin-right: auto;
+  }
+
+  .battle-wrapper .board.player.off-turn {
+    -webkit-animation: grow 1.5s 1 forwards;
+    animation: grow 1.5s 1 forwards;
+  }
+
+  .battle-wrapper .board.player.on-turn {
+    -webkit-animation: shrink 1.5s 1 forwards;
+    animation: shrink 1.5s 1 forwards;
+  }
+
+  .battle-wrapper .board.enemy.off-turn {
+    -webkit-animation: grow 1.5s 1 forwards;
+    animation: grow 1.5s 1 forwards;
+  }
+
+  .battle-wrapper .board.enemy.on-turn {
+    -webkit-animation: shrink 1.5s 1 forwards;
+    animation: shrink 1.5s 1 forwards;
+  }
+}

@@ -52,13 +52,15 @@ img {
   padding: 2rem;
 }
 
-.app.setup {
+.app.setup,
+.app.battle {
   position: relative;
   width: 100%;
   margin: 0 auto;
 
 }
 
-.app.setup > * {
+.app.setup > *,
+.app.battle > * {
   border-radius: 0.5rem;
 }

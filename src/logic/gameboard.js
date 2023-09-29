@@ -3,7 +3,16 @@ import { Ship } from "./ship.js";
 export function GameBoard() {
   const rows = 10;
   const columns = 10;
+
   let board = Array.from({ length: rows }, () => Array(columns).fill(null));
+
+  const shipPos = {
+    carrier: null,
+    battleship: null,
+    cruiser: null,
+    submarine: null,
+    destroyer: null,
+  };
   const shipsTypes = {
     carrier: 5,
     battleship: 4,
@@ -11,11 +20,14 @@ export function GameBoard() {
     submarine: 3,
     destroyer: 2,
   };
+
   let sunkShips = 0;
   let shipOnDrag = { name: "", length: 0 };
   let fleetNumber = 0;
 
   const getBoard = () => board;
+
+  const getShipInitialPosition = (name) => shipPos[name];
 
   const clearBoard = () =>
     (board = Array.from({ length: rows }, () => Array(columns).fill(null)));
@@ -55,12 +67,16 @@ export function GameBoard() {
       }
     }
 
+    const newShip = horizontal
+      ? Ship(shipName, shipLength, "X")
+      : Ship(shipName, shipLength, "Y");
+
+    shipPos[shipName] = [row, column];
+
     for (let i = 0; i < shipLength; i++) {
       if (horizontal) {
-        const newShip = Ship(shipName, shipLength, "X");
         board[row][column + i] = newShip;
       } else {
-        const newShip = Ship(shipName, shipLength, "Y");
         board[row + i][column] = newShip;
       }
     }
@@ -79,15 +95,13 @@ export function GameBoard() {
 
     if (data == null) {
       board[row][column] = "miss";
-      data = false;
+      return false;
     } else {
       data.hit();
       if (data.isSunk()) sunkShips++;
       board[row][column] = "hit";
-      data = true;
+      return data;
     }
-
-    return data;
   };
 
   const isGameOver = () => sunkShips === 5;
@@ -111,5 +125,6 @@ export function GameBoard() {
     getShipOnDrag,
     setShipOnDrag,
     getFleetNumber,
+    getShipInitialPosition,
   };
 }

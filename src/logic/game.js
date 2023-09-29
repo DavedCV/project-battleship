@@ -20,7 +20,7 @@ function Game() {
         column,
       );
 
-      if (result) computerPlayer.getGameboard().getShip(row, column);
+      if (result) return result;
       else return null;
     };
 
@@ -73,10 +73,10 @@ function Game() {
 
       if (result)
         return {
-          ship: userPlayer.getGameboard().getShip(row, column),
+          ship: result,
           coord: [row, column],
         };
-      else return null;
+      else return [row, column];
     };
 
     function populateQueue(row, column) {

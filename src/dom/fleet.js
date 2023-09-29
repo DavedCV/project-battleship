@@ -19,7 +19,7 @@ function fleet() {
         // if field is not empty on map load ship
         try {
           const ship = gameboard.getShip(row, column);
-          loadShipOnBoard(player, {
+          loadShipOnBoard({
             fieldContainer,
             ship,
             row,
@@ -32,7 +32,7 @@ function fleet() {
     }
   }
 
-  function loadShipOnBoard(player, data) {
+  function loadShipOnBoard(data) {
     const ship = data.ship;
 
     if (
@@ -101,7 +101,7 @@ function fleet() {
     return shipImage;
   }
 
-  return { loadFleet };
+  return { loadFleet, loadShipOnBoard };
 }
 
 export default fleet();

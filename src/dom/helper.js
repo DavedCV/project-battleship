@@ -92,7 +92,11 @@ function helper() {
     const x = Math.trunc(index / 10);
     const y = index % 10;
 
-    return [x, y]
+    return [x, y];
+  }
+
+  function getIndexFromCoordinates(row, column) {
+    return row * 10 + column;
   }
 
   return {
@@ -101,7 +105,8 @@ function helper() {
     appendAll,
     createMap,
     getNearestTen,
-    getCoordinatesFromIndex
+    getCoordinatesFromIndex,
+    getIndexFromCoordinates,
   };
 }
 

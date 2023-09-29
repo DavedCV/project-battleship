@@ -26,10 +26,10 @@ export function Player(name) {
   };
 
   const attackEnemy = (enemyGameboard, row, column) => {
-    const ship = enemyGameboard.receiveAttack(row, column);
+    const result = enemyGameboard.receiveAttack(row, column);
     turns++;
 
-    return ship;
+    return result;
   };
 
   return { getGameboard, getTurns, getName, placeShip, attackEnemy };

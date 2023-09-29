@@ -8,9 +8,21 @@ function Game() {
   function startGame(userName) {
     const userPlayer = Player(userName);
     const computerPlayer = Player("computer");
+    const computerTargetQueue = [];
 
     const getUserPlayer = () => userPlayer;
     const getComputerPlayer = () => computerPlayer;
+
+    const playerAttack = (row, column) => {
+      const result = computerPlayer.attackEnemy(
+        computerPlayer.getGameboard(),
+        row,
+        column,
+      );
+
+      if (result) computerPlayer.getGameboard().getShip(row, column);
+      else return null;
+    };
 
     const autoPlaceComputerPlayer = () => {
       for (let i = 0; i < 5; i++) {
@@ -31,10 +43,62 @@ function Game() {
       }
     };
 
+    const autoComputerAttack = () => {
+      let result;
+      let row;
+      let column;
+
+      while (true) {
+        if (computerTargetQueue.length > 0) {
+          [row, column] = computerTargetQueue[0];
+          computerTargetQueue.shift();
+        } else {
+          row = Math.trunc(Math.random() * 10);
+          column = Math.trunc(Math.random() * 10);
+        }
+
+        try {
+          result = computerPlayer.attackEnemy(
+            userPlayer.getGameboard(),
+            row,
+            column,
+          );
+          break;
+        } catch (error) {
+          continue;
+        }
+      }
+
+      if (result) populateQueue(row, column);
+
+      if (result)
+        return {
+          ship: userPlayer.getGameboard().getShip(row, column),
+          coord: [row, column],
+        };
+      else return null;
+    };
+
+    function populateQueue(row, column) {
+      // up, right, down, left
+      const drow = [-1, 0, 1, 0];
+      const dcol = [0, 1, 0, -1];
+
+      for (let i = 0; i < 4; i++) {
+        const newRow = row + drow[i];
+        const newColumn = column + dcol[i];
+        if (newRow <= 9 && newRow >= 0 && newColumn <= 9 && newColumn >= 0) {
+          computerTargetQueue.push([newRow, newColumn]);
+        }
+      }
+    }
+
     game = {
       getUserPlayer,
       getComputerPlayer,
+      playerAttack,
       autoPlaceComputerPlayer,
+      autoComputerAttack,
     };
   }
 

@@ -13,7 +13,8 @@ export function GameBoard() {
     submarine: null,
     destroyer: null,
   };
-  const shipsTypes = {
+
+  const shipLengths = {
     carrier: 5,
     battleship: 4,
     cruiser: 3,
@@ -21,13 +22,14 @@ export function GameBoard() {
     destroyer: 2,
   };
 
-  let sunkShips = 0;
   let shipOnDrag = { name: "", length: 0 };
+
+  let sunkShips = 0;
   let fleetNumber = 0;
 
-  const getBoard = () => board;
-
   const getShipInitialPosition = (name) => shipPos[name];
+
+  const getBoard = () => board;
 
   const clearBoard = () =>
     (board = Array.from({ length: rows }, () => Array(columns).fill(null)));
@@ -47,7 +49,7 @@ export function GameBoard() {
     if (row < 0 || row >= rows || column < 0 || column >= columns)
       throw new Error("Row position out of range");
 
-    const shipLength = shipsTypes[shipName];
+    const shipLength = shipLengths[shipName];
     if (
       (horizontal && column + shipLength > columns) ||
       (!horizontal && row + shipLength > rows)

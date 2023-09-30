@@ -10,80 +10,84 @@ function Message() {
       "all systems are online and ready for action. Let's give 'em hell!",
     ],
     battleStartEnemy: [
-      "I'll show you no mercy, just like your father showed none to mine.",
+      "Prepare yourself for a battle unlike any other, for I shall be as ruthless as fate itself, just as your forebears were to mine. This ocean will bear witness to our contest, and I promise you, there shall be no quarter given nor asked.",
     ],
     enemyHit: [
-      "They're getting schooner-ed, sir.",
-      "This battle is a tidal wave of victory!",
-      "The enemy ship is feeling the pressure, sir.",
-      "We've got them on the ropes sir, I mean rigging!",
-      "That was textbook, Captain. They're going down in no time.",
-      "Target hit. Enemy vessel has sustained significant damage.",
-      "Captain, we have successfully landed a blow on the enemy vessel.",
-      "That hit was right on the money, Captain. We've got them reeling.",
-      "BOOM! Enemy ship gets hit hard! That's what I call a depth charge!",
-      "Direct hit achieved. Enemy ship's combat effectiveness is significantly reduced.",
+      "They've just caught a cannonball to the hull, sir!",
+      "Our precision strikes are taking a toll on their ship, Captain.",
+      "The enemy vessel is feeling the weight of our firepower, sir.",
+      "Their ship is in a downward spiral, just like their hopes of victory!",
+      "That shot was a masterpiece, Captain. Their fate is sealed.",
+      "Direct hit, Captain! The enemy ship's defenses are crumbling.",
+      "We've scored a solid hit on the enemy vessel, sir.",
+      "A thunderous blow, Captain! The enemy ship is in dire straits.",
+      "KABOOM! The enemy ship is taking a beating. They won't last long.",
+      "Another precise hit, Captain. Their combat capabilities are in shambles.",
     ],
     enemySunk: [
-      "Captain, the enemy vessel is going down. That was one hell of a shot.",
-      "Sir, that was a hit for the history books. The enemy ship has been sunk.",
-      "We've just sunk the enemy ship, Captain. They won't be troubling us anymore.",
-      "Captain, we've just delivered a knockout blow. The enemy ship has been sunk.",
-      "We've just sent the enemy ship to Davy Jones' locker, Captain. Job well done.",
-      "Captain, the enemy ship has been vanquished. They won't be bothering us again.",
-      "That hit was a decisive blow, Captain. The enemy ship has met its watery grave.",
-      "That was a direct hit, Captain. The enemy ship is now resting on the ocean floor.",
-      "The enemy ship has been put out of commission. They won't be troubling us anymore.",
-      "We've just given the enemy ship a one-way ticket to the bottom of the ocean, Captain.",
+      "Captain, their ship is going under. That was a shot for the history books.",
+      "Sir, we've sent the enemy ship to the abyss. It's sunk.",
+      "The enemy ship has met its end, Captain. They won't trouble us again.",
+      "Captain, we've dealt the final blow. The enemy ship is sunk.",
+      "We've consigned the enemy ship to the depths, Captain. Well done.",
+      "Captain, the enemy ship is no more. They won't pester us again.",
+      "That shot was the nail in the coffin, Captain. The enemy ship is at rest beneath the waves.",
+      "Direct hit, Captain. The enemy ship now rests on the ocean floor.",
+      "The enemy ship is out of commission. They won't trouble us anymore.",
+      "We've just given the enemy ship a one-way trip to the ocean's depths, Captain.",
     ],
     playerMiss: [
-      "Close, but no cigar.",
-      "Our aim needs work, captain.",
-      "Negative on that shot, captain.",
-      "No hit, captain. Keep fighting.",
-      "That was a swing and a miss, sir.",
-      "No dice on that one. Keep trying!",
-      "The enemy is proving to be elusive, sir.",
-      "Looks like we need to adjust our aim, sir.",
-      "Looks like we need to recalibrate our aim, sir.",
-      "We're not making much headway, captain. What's the plan?",
+      "A near miss, but no cigar, captain.",
+      "Our shots need refining, captain. They slipped through our fingers.",
+      "Negative, captain. That shot missed the mark.",
+      "We've come up empty-handed, captain. Keep the fire burning!",
+      "That was a close shave, sir, but no hit.",
+      "No luck this time. Keep up the effort!",
+      "The enemy is proving elusive, sir. Let's stay vigilant.",
+      "Time to fine-tune our aim, sir. They won't elude us for long.",
+      "Our sights are slightly off, sir. We'll get them next time.",
+      "Progress is slow, captain. What's the next move in our strategy?",
     ],
     playerHit: [
-      "Your time is up!",
-      "Hehehe, your luck is running out,",
-      "Brace yourself for the real pain!",
-      "That was just a taste of what's to come.",
-      "You'll be swimming with the fishes soon enough.",
-      "My torpedoes have your number, it's over for you!",
-      "So predictable, you're not even worth the ammunition",
-      "How does it feel to be on the receiving end of my wrath?",
-      "Your luck has run out, and there's nowhere left to hide!",
-      "Looks like I hit a nerve. How about a little retaliation?",
+      "Your fate is sealed!",
+      "Hehehe, your fortunes are dwindling,",
+      "Prepare for the storm of destruction!",
+      "That was just a glimpse of your impending doom.",
+      "The ocean's embrace awaits you, my foe.",
+      "My torpedoes have found their mark, your end is nigh!",
+      "So easily anticipated, you're not even a challenge.",
+      "How does it feel to face the fury of my onslaught?",
+      "Your fortune has deserted you, and there's no escape!",
+      "Seems I've struck a nerve. Ready for a taste of your own medicine?",
     ],
     playerSunk: [
-      "Looks like you'll be swimming home. Hehehe.",
-      "You fought like a coward and died like a dog.",
-      "Looks like your ship was no match for our firepower.",
-      "Another one bites the dust. It's too easy to crush your kind.",
-      "Your demise was inevitable. The sea always takes what it wants.",
-      "Did you really think you stood a chance against us? How foolish.",
-      "It's a shame your ship couldn't withstand the might of our fleet.",
-      "The ocean belongs to the strong. Your ship didn't stand a chance.",
-      "You made a grave mistake challenging me. Your defeat was certain.",
-      "You should have surrendered while you had the chance. Now look at you.",
+      "Looks like you're headed for a watery grave. Hehehe.",
+      "You fought like a coward and met a fitting end.",
+      "Your ship was no match for our overwhelming firepower.",
+      "Another one bites the dust. Crushing your kind is too easy.",
+      "Your fate was sealed from the beginning. The sea claims its victims.",
+      "Did you truly believe you could stand against us? How naive.",
+      "It's regrettable that your vessel crumbled before our might.",
+      "The ocean favors the strong. Your ship was doomed.",
+      "Challenging me was a grave error. Your defeat was inevitable.",
+      "Surrender was your only sensible choice. Now look at the consequences.",
     ],
     enemyMiss: [
-      "I'll get you next time.",
-      "My turn to strike again.",
-      "Missed, but not for long.",
-      "You can run, but you can't hide.",
-      "You can't escape my sight forever.",
-      "Your luck is just prolonging the inevitable.",
-      "My torpedoes will find you, no matter where you hide.",
-      "You may have dodged one, but you can't dodge them all.",
-      "That was just a warning shot, the real attack is coming.",
-      "You're playing with fire, and I have a lot of ammunition.",
+      "I'll have my revenge soon enough.",
+      "It's my turn to strike back, just you wait.",
+      "Missed, but I won't miss twice.",
+      "You can try to hide, but you won't elude me for long.",
+      "I'll find you, no matter where you try to escape.",
+      "Your luck is merely delaying the inevitable, my friend.",
+      "My torpedoes are relentless; they'll track you down.",
+      "You may have evaded one, but the next one won't miss.",
+      "Consider that a warning shot; the real barrage is on its way.",
+      "You're toying with danger, and my arsenal is boundless.",
     ],
+    playerWin: [
+      "Mission accomplished, Captain! You truly are the master of the seas.",
+    ],
+    enemyWin: ["You were no match for me scum."],
   };
 
   function getWelcomeMessage() {
@@ -93,49 +97,85 @@ function Message() {
   }
 
   function getBattleStartMessage() {
-    return [
-      `${Game.getGame().getUserPlayer().getName()} ${
-        messages.battleStartPlayer[0]
-      }`,
-    ];
+    return `${Game.getGame().getUserPlayer().getName()} ${
+      messages.battleStartPlayer[0]
+    }`;
   }
 
   function getEnemyBattleStartMessage() {
-    return messages.battleStartEnemy;
+    return messages.battleStartEnemy[0];
   }
 
   function getNewEnemyHitMessage(prevMessage) {
-    const prevIndex = messages.enemyHit.indexOf(prevMessage);
-    return messages.enemyHit[(prevIndex + 1) % messages.enemyHit.length];
+    let newMessage = prevMessage;
+    while (newMessage === prevMessage) {
+      newMessage = messages.enemyHit[randomChoice(messages.enemyHit.length)];
+    }
+
+    return newMessage;
   }
 
   function getNewEnemySunkMessage(prevMessage) {
-    const prevIndex = messages.enemySunk.indexOf(prevMessage);
-    return messages.enemySunk[(prevIndex + 1) % messages.enemySunk.length];
+    let newMessage = prevMessage;
+    while (newMessage === prevMessage) {
+      newMessage = messages.enemySunk[randomChoice(messages.enemySunk.length)];
+    }
+
+    return newMessage;
   }
 
   function getNewPlayerMissMessage(prevMessage) {
-    const prevIndex = messages.playerMiss.indexOf(prevMessage);
-    return messages.playerMiss[(prevIndex + 1) % messages.playerMiss.length];
+    let newMessage = prevMessage;
+    while (newMessage === prevMessage) {
+      newMessage =
+        messages.playerMiss[randomChoice(messages.playerMiss.length)];
+    }
+
+    return newMessage;
+  }
+
+  function getNewPlayerHitMessage(prevMessage) {
+    let newMessage = prevMessage;
+    while (newMessage === prevMessage) {
+      newMessage = messages.playerHit[randomChoice(messages.playerHit.length)];
+    }
+
+    return newMessage;
+  }
+
+  function getNewPlayerSunkMessage(prevMessage) {
+    let newMessage = prevMessage;
+    while (newMessage === prevMessage) {
+      newMessage =
+        messages.playerSunk[randomChoice(messages.playerSunk.length)];
+    }
+
+    return newMessage;
+  }
+
+  function getNewEnemyMissMessage(prevMessage) {
+    let newMessage = prevMessage;
+    while (newMessage === prevMessage) {
+      newMessage = messages.enemyMiss[randomChoice(messages.enemyMiss.length)];
+    }
+
+    return newMessage;
+  }
+
+  function randomChoice(optionLength) {
+    return Math.trunc(Math.random() * optionLength);
+  }
+
+  function getEnemyWinMessage() {
+    return messages.enemyWin[0];
+  }
+
+  function getPlayerWinMessage() {
+    return messages.playerWin[0];
   }
 
   function getNoCommentMessage() {
     return "...";
-  }
-
-  function getNewPlayerHitMessage(prevMessage) {
-    const prevIndex = messages.playerHit.indexOf(prevMessage);
-    return messages.playerHit[(prevIndex + 1) % messages.playerHit.length];
-  }
-
-  function getNewPlayerSunkMessage(prevMessage) {
-    const prevIndex = messages.playerSunk.indexOf(prevMessage);
-    return messages.playerSunk[(prevIndex + 1) % messages.playerSunk.length];
-  }
-
-  function getNewEnemyMissMessage(prevMessage) {
-    const prevIndex = messages.enemyMiss.indexOf(prevMessage);
-    return messages.enemyMiss[(prevIndex + 1) % messages.enemyMiss.length];
   }
 
   return {
@@ -149,6 +189,8 @@ function Message() {
     getNewPlayerHitMessage,
     getNewPlayerSunkMessage,
     getNewEnemyMissMessage,
+    getEnemyWinMessage,
+    getPlayerWinMessage,
   };
 }
 

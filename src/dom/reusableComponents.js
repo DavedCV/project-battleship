@@ -19,7 +19,6 @@ function Component() {
   function createMessageSection(classNamesArray) {
     const section = helper.create("section", { className: "message" });
 
-    // set all passed classes
     classNamesArray.forEach((className) => section.classList.add(className));
 
     const character = classNamesArray[1];

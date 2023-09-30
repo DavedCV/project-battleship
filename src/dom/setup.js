@@ -1,7 +1,9 @@
 import helper from "./helper";
+
+import Game from "../logic/game";
+
 import Component from "./reusableComponents";
 import Message from "../utils/message";
-import Game from "../logic/game";
 import DragDrop from "./dragDrop";
 import Battle from "./battle";
 
@@ -183,7 +185,6 @@ function setup() {
 
   function resetFleetSelect() {
     const fleet = document.getElementById("fleet-setup");
-    const message = document.getElementById("message-captain");
 
     [...fleet.children].forEach((node) => {
       if (node.classList.contains("hidden")) {

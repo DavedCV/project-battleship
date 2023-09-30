@@ -1,7 +1,9 @@
-import fleet from "./fleet";
-import helper from "./helper";
-import Component from "./reusableComponents";
 import Game from "../logic/game";
+
+import helper from "./helper";
+
+import fleet from "./fleet";
+import Component from "./reusableComponents";
 import Message from "../utils/message";
 
 function Battle() {
@@ -22,6 +24,8 @@ function Battle() {
 
     styleOnTurn(document.querySelector(".message.battle.captain"));
   }
+
+  // ---------------------------------------------------------------------------
 
   function createBattleWrapper() {
     const wrapper = helper.create("div", {
@@ -69,22 +73,75 @@ function Battle() {
     return container;
   }
 
-  function displayPlayerShips() {
-    const userBoard = document.getElementById("field-container-player");
-    fleet.loadFleet(userBoard);
+  function createWinnerModal(data) {
+    const winnerModal = helper.create("section", {
+      id: "win-modal-container",
+      className: "win-modal-container",
+    });
+
+    winnerModal.classList.add(data.className);
+
+    const title = helper.create("h4", {
+      id: `title-${data.id}`,
+      className: `title-${data.id}`,
+      textContent: data.title,
+    });
+
+    const message = Component.createMessageSection(["battle", data.id]);
+
+    const button = helper.create("button", {
+      id: "new-game-button",
+      className: "new-game-button",
+      textContent: "New Battle!",
+    });
+
+    helper.appendAll(winnerModal, [title, message, button]);
+
+    return winnerModal;
   }
 
-  function displayBattleStartMessage(character) {
-    const message = document.getElementById(`message-${character}`);
-    if (character === "captain") {
-      Component.addTypeWritterMessage(message, Message.getBattleStartMessage());
-    } else {
-      Component.addTypeWritterMessage(
-        message,
-        Message.getEnemyBattleStartMessage(),
-      );
-    }
+  function createWinOverlay() {
+    return helper.create("div", { className: "win-overlay" });
   }
+
+  function showEnemyWinModal() {
+    const app = document.getElementById("app");
+
+    helper.appendAll(app, [
+      createWinnerModal({
+        title: "YOU LOSE!",
+        id: "enemy-win",
+        className: "enemy",
+      }),
+      createWinOverlay(),
+    ]);
+
+    displayWinMessage("enemy-win");
+    initNewGameButton();
+
+    return "win";
+  }
+
+  function showPlayerWinModal() {
+    const app = document.getElementById("app");
+
+    helper.appendAll(app, [
+      createWinnerModal({
+        title: "YOU WIN!",
+        id: "captain-win",
+        className: "player",
+      }),
+      createWinOverlay(),
+    ]);
+
+    displayWinMessage("captain-win");
+    initNewGameButton();
+    unInitBoardFields();
+
+    return "win";
+  }
+
+  // ---------------------------------------------------------------------------
 
   function initBoardFields() {
     const computerBoard = document.getElementById("field-container-computer");
@@ -106,15 +163,12 @@ function Battle() {
     removeFieldHoverWhenOffTurn();
   }
 
-  function addFieldHoverWhenOnTurn() {
-    const container = document.getElementById("field-container-computer");
-    container.classList.remove("disabled");
+  function initNewGameButton() {
+    const button = document.getElementById("new-game-button");
+    button.addEventListener("click", () => window.location.reload());
   }
 
-  function removeFieldHoverWhenOffTurn() {
-    const container = document.getElementById("field-container-computer");
-    container.classList.add("disabled");
-  }
+  // ---------------------------------------------------------------------------
 
   async function handleFieldClick(event) {
     const { target } = event;
@@ -146,6 +200,30 @@ function Battle() {
 
     await turnEnd("player");
     return res;
+  }
+
+  async function playerMiss(fieldNode) {
+    addMissStyle(fieldNode);
+    await timeoutMissileLength();
+    //Sound.miss();
+    displayPlayerMessage(null);
+    await timeoutOneSecond();
+
+    return "miss";
+  }
+
+  async function playerHit(fieldNode, ship) {
+    addHitStyle(fieldNode);
+    loadShipIfSunk(ship);
+    await timeoutMissileLength();
+    //Sound.hit();
+    displayPlayerMessage(ship);
+    await timeoutOneSecond();
+
+    if (Game.getGame().getComputerPlayer().getGameboard().isGameOver())
+      return showPlayerWinModal();
+
+    return "hit";
   }
 
   async function computerTurn() {
@@ -191,16 +269,6 @@ function Battle() {
     return "miss";
   }
 
-  async function playerMiss(fieldNode) {
-    addMissStyle(fieldNode);
-    await timeoutMissileLength();
-    //Sound.miss();
-    displayPlayerMessage(null);
-    await timeoutOneSecond();
-
-    return "miss";
-  }
-
   async function computerHit(row, column, ship) {
     const playerBoard = document.getElementById("field-container-player");
     const index = helper.getIndexFromCoordinates(row, column);
@@ -217,30 +285,74 @@ function Battle() {
     return "hit";
   }
 
-  async function playerHit(fieldNode, ship) {
-    addHitStyle(fieldNode);
-    loadShipIfSunk(ship);
-    await timeoutMissileLength();
-    //Sound.hit();
-    displayPlayerMessage(ship);
-    await timeoutOneSecond();
+  // ---------------------------------------------------------------------------
 
-    if (Game.getGame().getComputerPlayer().getGameboard().isGameOver())
-      return showPlayerWinModal();
-
-    return "hit";
+  async function shotOnTurnPlay(character) {
+    if (character === "player") {
+      //Sound.shot();
+      await timeOutHalfSecond();
+    } else {
+      //Sound.shot();
+      await timeOutHalfSecond();
+    }
   }
 
-  function addHitStyle(fieldNode) {
-    fieldNode.classList.add("hit");
+  async function turnEnd(character) {
+    await timeoutOneAndHalfSecond();
+
+    if (character === "player") {
+      styleOffTurn(document.querySelector(".message.battle.captain"));
+      styleOnTurn(document.querySelector(".message.battle.enemy"));
+      resizePlayerOffTurn();
+    } else {
+      styleOffTurn(document.querySelector(".message.battle.enemy"));
+      styleOnTurn(document.querySelector(".message.battle.captain"));
+      resizePlayerOnTurn();
+      initBoardFields();
+    }
   }
 
-  function addMissStyle(fieldNode) {
-    fieldNode.classList.add("miss");
+  // ---------------------------------------------------------------------------
+
+  function displayPlayerShips() {
+    const userBoard = document.getElementById("field-container-player");
+    fleet.loadFleet(userBoard);
   }
 
-  function timeoutMissileLength() {
-    return new Promise((resolve) => setTimeout(resolve, 300));
+  function loadShipIfSunk(ship) {
+    console.log(ship.getLength());
+
+    if (ship.isSunk()) {
+      const [rowOrigin, columnOrigin] = Game.getGame()
+        .getComputerPlayer()
+        .getGameboard()
+        .getShipInitialPosition(ship.getName());
+      const fieldContainer = document.getElementById(
+        "field-container-computer",
+      );
+
+      fleet.loadShipOnBoard({
+        fieldContainer,
+        ship,
+        row: rowOrigin,
+        column: columnOrigin,
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+
+  function displayBattleStartMessage(character) {
+    const message = document.getElementById(`message-${character}`);
+    if (character === "captain") {
+      Component.addTypeWritterMessage(message, [
+        Message.getBattleStartMessage(),
+      ]);
+    } else {
+      Component.addTypeWritterMessage(message, [
+        Message.getEnemyBattleStartMessage(),
+      ]);
+    }
   }
 
   function displayPlayerMessage(target) {
@@ -286,13 +398,28 @@ function Battle() {
         );
       }
     } else {
-      displayMessage(enemy, Message.getNewPlayerMissMessage(enemy.textContent));
+      displayMessage(enemy, Message.getNewEnemyMissMessage(enemy.textContent));
     }
   }
 
   function displayMessage(node, message) {
     clearTypeWritter(node);
     Component.addTypeWritterMessage(node, [message]);
+  }
+
+  function displayWinMessage(character) {
+    const message = document.getElementById(`message-${character}`);
+
+    if (character === "captain-win") {
+      Component.addTypeWritterMessage(message, [Message.getPlayerWinMessage()]);
+    } else if (character === "enemy-win") {
+      Component.addTypeWritterMessage(message, [Message.getEnemyWinMessage()]);
+    }
+  }
+
+  function displayPlayerNoCommentMessage() {
+    const captain = document.getElementById("message-captain");
+    displayMessage(captain, Message.getNoCommentMessage());
   }
 
   function clearTypeWritter(node) {
@@ -302,79 +429,24 @@ function Battle() {
     }
   }
 
-  function timeoutOneSecond() {
-    return new Promise((resolve) => setTimeout(resolve, 1000));
+  // ---------------------------------------------------------------------------
+
+  function addFieldHoverWhenOnTurn() {
+    const container = document.getElementById("field-container-computer");
+    container.classList.remove("disabled");
   }
 
-  function showPlayerWinModal() {
-    const app = document.getElementById("app");
-
-    helper.appendAll(app, [
-      createWinnerModal({
-        title: "YOU WIN!",
-        id: "captain-win",
-        className: "player",
-      }),
-      createWinOverlay(),
-    ]);
-
-    displayWinMessage("captain-win");
-    initNewGameButton();
-    unInitBoardFields();
-
-    return "win";
+  function removeFieldHoverWhenOffTurn() {
+    const container = document.getElementById("field-container-computer");
+    container.classList.add("disabled");
   }
 
-  function showEnemyWinModal() {
-    const app = document.getElementById("app");
-
-    helper.appendAll(app, [
-      createWinnerModal({
-        title: "YOU LOSE!",
-        id: "enemy-win",
-        className: "enemy",
-      }),
-      createWinOverlay(),
-    ]);
-
-    displayWinMessage("enemy-win");
-    initNewGameButton();
-
-    return "win";
+  function addHitStyle(fieldNode) {
+    fieldNode.classList.add("hit");
   }
 
-  async function shotOnTurnPlay(character) {
-    if (character === "player") {
-      //Sound.shot();
-      await timeOutHalfSecond();
-    } else {
-      //Sound.shot();
-      await timeOutHalfSecond();
-    }
-  }
-
-  function timeOutHalfSecond() {
-    return new Promise((resolve) => setTimeout(resolve, 500));
-  }
-
-  function displayPlayerNoCommentMessage() {
-    const captain = document.getElementById("message-captain");
-    displayMessage(captain, Message.getNoCommentMessage());
-  }
-
-  async function turnEnd(character) {
-    await timeoutOneAndHalfSecond();
-
-    if (character === "player") {
-      styleOffTurn(document.querySelector(".message.battle.captain"));
-      styleOnTurn(document.querySelector(".message.battle.enemy"));
-      resizePlayerOffTurn();
-    } else {
-      styleOffTurn(document.querySelector(".message.battle.enemy"));
-      styleOnTurn(document.querySelector(".message.battle.captain"));
-      resizePlayerOnTurn();
-      initBoardFields();
-    }
+  function addMissStyle(fieldNode) {
+    fieldNode.classList.add("miss");
   }
 
   function styleOffTurn(element) {
@@ -387,10 +459,6 @@ function Battle() {
     element.classList.add("on-turn");
   }
 
-  function timeoutOneAndHalfSecond() {
-    return new Promise((resolve) => setTimeout(resolve, 1500));
-  }
-
   function resizePlayerOnTurn() {
     styleOffTurn(document.getElementById("board-computer"));
     styleOnTurn(document.getElementById("board-player"));
@@ -401,23 +469,22 @@ function Battle() {
     styleOnTurn(document.getElementById("board-computer"));
   }
 
-  function loadShipIfSunk(ship) {
-    console.log(ship.getLength());
+  // ---------------------------------------------------------------------------
 
-    if (ship.isSunk()) {
-      const [rowOrigin, columnOrigin] = Game.getGame()
-        .getComputerPlayer()
-        .getGameboard()
-        .getShipInitialPosition(ship.getName());
-      const fieldContainer = document.getElementById("field-container-computer");
+  function timeoutMissileLength() {
+    return new Promise((resolve) => setTimeout(resolve, 300));
+  }
 
-      fleet.loadShipOnBoard({
-        fieldContainer,
-        ship,
-        row: rowOrigin,
-        column: columnOrigin,
-      });
-    }
+  function timeoutOneSecond() {
+    return new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+
+  function timeOutHalfSecond() {
+    return new Promise((resolve) => setTimeout(resolve, 500));
+  }
+
+  function timeoutOneAndHalfSecond() {
+    return new Promise((resolve) => setTimeout(resolve, 1500));
   }
 
   return { loadBattleContent };

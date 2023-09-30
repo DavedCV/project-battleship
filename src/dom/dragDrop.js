@@ -178,6 +178,7 @@ function DragDrop() {
   }
 
   /* handler helpers ---------------------------------------------------------*/
+
   function addShipOnDragStart(node) {
     Game.getGame().getUserPlayer().getGameboard().setShipOnDrag({
       name: node.dataset.shipName,

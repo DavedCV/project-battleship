@@ -12,10 +12,7 @@ export function Ship(name, length, axis) {
 
   const hit = () => numberOfHits++;
 
-  const isSunk = () => {
-    if (numberOfHits === length) sunk = true;
-    return sunk;
-  };
+  const isSunk = () => numberOfHits === length;
 
   return { getName, getLength, getAxis, getNumberOfHits, hit, isSunk };
 }

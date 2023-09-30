@@ -143,7 +143,7 @@
   left: -0.125rem;
 }
 
-.ship-card:after {
+.ship-card::after {
   width: calc(100% - 1rem);
   height: calc(100% + 0.25rem);
   top: -0.125rem;

@@ -47,8 +47,8 @@
 }
 
 .field-container#field-container-computer::before {
-  -webkit-filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg) brightness(96%) contrast(98%) !important;
-  filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg) brightness(96%) contrast(98%) !important;
+  -webkit-filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg) brightness(96%) contrast(98%);
+  filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg) brightness(96%) contrast(98%);
 }
 
 .field-container#field-container-computer img {
@@ -56,7 +56,7 @@
   filter: invert(63%) sepia(99%) saturate(360%) hue-rotate(343deg) brightness(98%) contrast(94%);
 }
 
-.field-container::after {
+.battle-wrapper .field-container::after {
   display: none;
 }
 
@@ -154,7 +154,6 @@
 
 .message.battle.enemy {
   justify-content: flex-end;
-
 }
 
 .message.battle.enemy .message-image {
@@ -165,7 +164,7 @@
   order: 1;
 }
 
-.message.battle.enemy .message-captain {
+.message.battle.enemy .message-enemy {
   color: #f3a640;
 }
 
@@ -180,6 +179,10 @@
 .message.battle .message-container {
   display: inline;
   text-align: start;
+}
+
+.message.battle.enemy .message-container {
+  text-align: end;
 }
 
 .message.battle .message-container .message-captain,
@@ -209,7 +212,7 @@
 
 .message.battle.on-turn.captain .typed-cursor,
 .message.battle.on-turn.enemy .typed-cursor {
-  color: #000000;
+  background-color: #000000;
 }
 
 .message.battle.captain {
@@ -241,10 +244,6 @@
 .message.battle.enemy {
   position: relative;
   overflow: hidden;
-}
-
-.message.battle.enemy .message-container {
-  text-align: end;
 }
 
 .message.battle.enemy::after {

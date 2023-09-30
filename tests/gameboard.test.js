@@ -1,8 +1,8 @@
-import { experiments } from "webpack";
-import { GameBoard } from "../src/gameboard";
-import { Ship } from "../src/ship";
+import { ExternalModule, experiments } from "webpack";
+import { GameBoard } from "../src/logic/gameboard";
+import { Ship } from "../src/logic/ship";
 
-jest.mock("../src/ship");
+jest.mock("../src/logic/ship");
 
 describe("test get board", () => {
   test("test get board", () => {
@@ -12,9 +12,8 @@ describe("test get board", () => {
 });
 
 describe("test clear board", () => {
-  const gameboard = GameBoard();
-
   test("test clear board", () => {
+    const gameboard = GameBoard();
     gameboard.clearBoard();
     expect(gameboard.getBoard()).toEqual(Array(10).fill(Array(10).fill(null)));
   });
@@ -259,6 +258,67 @@ describe("test receive attack", () => {
     gameboard.receiveAttack(0, 4);
     expect(testShip.isSunk()).toBe(true);
     expect(hitSpy).toHaveBeenCalledTimes(5);
+  });
+
+  placeShip.mockRestore();
+});
+
+describe("test game over checking", () => {
+  const gameboard = GameBoard();
+
+  let currentLength = 1;
+  Ship.mockImplementation(() => {
+    return {
+      length: currentLength++,
+      numberOfHits: 0,
+      hit() {
+        this.numberOfHits++;
+      },
+      isSunk() {
+        return this.numberOfHits === this.length;
+      },
+      getLength() {
+        return this.length;
+      },
+    };
+  });
+
+  let currentRow = 0;
+  const placeShip = jest
+    .spyOn(gameboard, "placeShip")
+    .mockImplementation((testShip) => {
+      for (let i = 0; i < testShip.length; i++) {
+        gameboard.getBoard()[currentRow][i] = testShip;
+      }
+      currentRow++;
+    });
+
+  const spyGameOver = jest.spyOn(gameboard, "isGameOver");
+
+  const testShip1 = Ship();
+  const testShip2 = Ship();
+  const testShip3 = Ship();
+  const testShip4 = Ship();
+  const testShip5 = Ship();
+
+  console.log(testShip1.getLength());
+  console.log(testShip2.getLength());
+
+  gameboard.placeShip(testShip1);
+  gameboard.placeShip(testShip2);
+  gameboard.placeShip(testShip3);
+  gameboard.placeShip(testShip4);
+  gameboard.placeShip(testShip5);
+
+  test("test game over", () => {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < i + 1; j++) {
+        gameboard.receiveAttack(i, j);
+      }
+    }
+
+    expect(gameboard.isGameOver()).toBe(true);
+    expect(spyGameOver).toHaveBeenCalledTimes(1);
   });
 
   placeShip.mockRestore();

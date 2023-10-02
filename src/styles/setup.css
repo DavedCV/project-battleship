@@ -27,7 +27,6 @@
 
 .message.setup .message-image {
   height: min(calc(1.25rem + 2vw), 2.75rem);
-  ;
 }
 
 .message.setup .message-container {

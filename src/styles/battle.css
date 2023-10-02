@@ -363,6 +363,24 @@
   }
 }
 
+@keyframes grow {
+  0% {
+    width: 12.5rem;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 12.5rem;
+  }
+}
+
 @media screen and (max-width: 48rem) {
   .battle-wrapper {
     display: grid;
